@@ -45,12 +45,70 @@ console.log(mySet.has(23));       // false
 console.log(mySet.add(456));      // true
 console.log(mySet);               // { 456: true }
 console.log(mySet.has(456));      // true
-console.log(mySet.add(456));      // false (déjà présent)
+console.log(mySet.add(456));      // false (already exist)
 console.log(mySet);               // { 456: true }
 console.log(mySet.add(23));       // false
 console.log(mySet.add(4));      // true
 console.log(mySet);               // 
 console.log(mySet.has(4));      // true
-console.log(mySet.add(67));      // false (déjà présent)
+console.log(mySet.add(67));      // false (already exist)
 console.log(mySet);
 console.log(mySet.size());
+
+
+// Create a set using an array
+
+
+function mySet(){
+    var collection = [];
+    // verify if an element exists and return true or false if it does'nt
+    this.has = function(element){
+        if(collection.indexOf(element) !==-1){
+           return true;
+        }
+        return false; 
+    }
+    // print the values of the array
+    this.values = function(){
+        return collection;
+        }
+    
+    // add an element to the array
+    this.add = function(element){
+        if(!this.has(element)){
+            collection.push(element);
+            return `The Element => ${element} Was Successfully Added`;
+        }
+        return `The Element => ${element} Already Exist in The Array`;
+    }
+    
+    // remove an element from the array
+    this.remove = function(element){
+        if(this.has(element)){
+            index = collection.indexOf(element);
+            collection.splice(index,1);
+            return `The Element => ${element} Was Successfully Removed`;
+        }
+        return `The Element => ${element} Doesn't Exist in The Array`;
+    }
+    
+}
+
+
+
+ const mySet1 = new mySet();
+console.log(mySet1.add(456));      
+console.log(mySet1.values());               
+console.log(mySet1.has(456));      
+console.log(mySet1.add(456));   
+console.log(mySet1.values());  
+console.log(mySet1.add(46));      
+console.log(mySet1.values());              
+console.log(mySet1.has(46));      
+console.log(mySet1.add(64));
+console.log(mySet1.add(67));
+console.log(mySet1.values());
+console.log(mySet1.remove(6));
+console.log(mySet1.remove(67));
+console.log(mySet1.remove(64));
+console.log(mySet1.values());
