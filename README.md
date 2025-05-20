@@ -1,1 +1,1 @@
-# Stacks-in-JS
+# Data-Structures-in-JS
