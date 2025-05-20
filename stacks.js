@@ -37,6 +37,12 @@ console.log(myStack.peek());
 console.log(myStack.pop())
 console.log(myStack.peek());
 console.log(myStack.size());
+myStack.push("I am the last standing after all!!!");
+myStack.push("Some pushing, poping and peeking");
+console.log(myStack.size());
+console.log(myStack.peek());
+console.log(myStack.pop())
+console.log(myStack.peek());
 
 
 
