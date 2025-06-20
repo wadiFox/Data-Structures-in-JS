@@ -20,9 +20,8 @@ class Set {
       this.dictionary[value] = value;
       this.length++;
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   remove(value) {
@@ -30,71 +29,101 @@ class Set {
       delete this.dictionary[value];
       this.length--;
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   size() {
     return this.length;
   }
 }
-const mySet = new Set();
-console.log(mySet);               // {}
-console.log(mySet.has(23));       // false
-console.log(mySet.add(456));      // true
-console.log(mySet);               // { 456: true }
-console.log(mySet.has(456));      // true
-console.log(mySet.add(456));      // false (already exist)
-console.log(mySet);               // { 456: true }
-console.log(mySet.add(23));       // false
-console.log(mySet.add(4));      // true
-console.log(mySet);               // 
-console.log(mySet.has(4));      // true
-console.log(mySet.add(67));      // false (already exist)
-console.log(mySet);
-console.log(mySet.size());
+
+// ✅ CORRECT USAGE
+const setTest = new Set();
+console.log(setTest.has(23));       // false
+console.log(setTest.add(456));      // true
+console.log(setTest.has(456));      // true
+console.log(setTest.add(456));      // false (already exists)
+console.log(setTest.add(23));       // true ✅ Was false before: that was an error in test, not in code
+console.log(setTest.add(4));        // true
+console.log(setTest.has(4));        // true
+console.log(setTest.add(67));       // true ✅ was written "false" by mistake
+console.log(setTest.values());      // Show all added values
+console.log(setTest.size());        // 4
+
 
 
 // Create a set using an array
 
 
-function mySet(){
+class mySet {
+  constructor() {
     var collection = [];
-    // verify if an element exists and return true or false if it does'nt
-    this.has = function(element){
-        if(collection.indexOf(element) !==-1){
-           return true;
+
+    this.has = function (element) {
+      return collection.indexOf(element) !== -1;
+    };
+
+    this.values = function () {
+      return collection;
+    };
+
+    this.add = function (element) {
+      if (!this.has(element)) {
+        collection.push(element);
+        return `The Element => ${element} Was Successfully Added`;
+      }
+      return `The Element => ${element} Already Exists in The Array`;
+    };
+
+    this.remove = function (element) {
+      if (this.has(element)) {
+        const index = collection.indexOf(element);
+        collection.splice(index, 1);
+        return `The Element => ${element} Was Successfully Removed`;
+      }
+      return `The Element => ${element} Doesn't Exist in The Array`;
+    };
+
+    this.union = function (otherSet) {
+      const unionSet = new mySet();
+      const firstSet = this.values();
+      const secondSet = otherSet.values();
+
+      firstSet.forEach(value => unionSet.add(value));
+      secondSet.forEach(value => unionSet.add(value));
+
+      return unionSet;
+    };
+
+    this.intersection = function (otherSet) {
+      const intersectionSet = new mySet();
+      this.values().forEach(value => {
+        if (otherSet.has(value)) {
+          intersectionSet.add(value);
         }
-        return false; 
-    }
-    // print the values of the array
-    this.values = function(){
-        return collection;
+      });
+      return intersectionSet;
+    };
+
+    this.difference = function (otherSet) {
+      const differenceSet = new mySet();
+      this.values().forEach(value => {
+        if (!otherSet.has(value)) {
+          differenceSet.add(value);
         }
-    
-    // add an element to the array
-    this.add = function(element){
-        if(!this.has(element)){
-            collection.push(element);
-            return `The Element => ${element} Was Successfully Added`;
-        }
-        return `The Element => ${element} Already Exist in The Array`;
-    }
-    
-    // remove an element from the array
-    this.remove = function(element){
-        if(this.has(element)){
-            index = collection.indexOf(element);
-            collection.splice(index,1);
-            return `The Element => ${element} Was Successfully Removed`;
-        }
-        return `The Element => ${element} Doesn't Exist in The Array`;
-    }
-    
+      });
+      return differenceSet;
+    };
+
+    this.subset = function (otherSet) {
+      return this.values().every(value => otherSet.has(value));
+    };
+  }
 }
 
- const mySet1 = new mySet();
+// ✅ TESTING THE CLASS
+const mySet1 = new mySet();
 console.log(mySet1.add(456));      
 console.log(mySet1.values());               
 console.log(mySet1.has(456));      
@@ -106,48 +135,19 @@ console.log(mySet1.has(46));
 console.log(mySet1.add(64));
 console.log(mySet1.add(67));
 console.log(mySet1.values());
-console.log(mySet1.remove(6));
-console.log(mySet1.remove(67));
-console.log(mySet1.remove(64));
-console.log(mySet1.values());
+console.log(mySet1.remove(6));        // Doesn't exist
+console.log(mySet1.remove(67));      // Should remove
+console.log(mySet1.remove(64));      // Should remove
+console.log(mySet1.values());        // Should show [456, 46]
 
-// return the union of two sets
+// ✅ SUBSET TEST
+const set1 = new mySet();
+const set2 = new mySet();
+set1.add("a");
+set2.add("b");
+set2.add("c");
+set2.add("a");
+set2.add("d");
 
-this.union = function(otherSet){
-   var unionSet = new mySet();
-   var firstSet = this.values();
-   var secondSet = otherSet.values();
-   firstSet.forEach(function(value){
-    unionSet.add(value);
-   })
-   secondSet.forEach(function(value){
-    unionSet.add(value);
-   })
-   return unionSet;
-};
-
-// return the intersection of two sets
-
-this.intersection = function(otherSet){
-   var intersectionSet = new mySet();
-   var firstSet = this.values();
-   firstSet.forEach(function(value){
-    if(otherSet.has(value)){
-    intersectionSet.add(value);
-    }
-   })
-   return intersectionSet;
-};
-
-// return the difference between two sets
-
-this.difference = function(otherSet){
-  var differenceSet = new mySet();
-  var firstSet = this.values();
-  firstSet.forEach(function(value){
-    if(!otherSet.has(value)){
-      differenceSet.add(value);
-    }
-    })
-    return differenceSet;
-    };
+console.log(set1.subset(set2)); // true
+console.log(set2.subset(set1)); // false
