@@ -148,6 +148,20 @@ set2.add("b");
 set2.add("c");
 set2.add("a");
 set2.add("d");
-
 console.log(set1.subset(set2)); // true
 console.log(set2.subset(set1)); // false
+console.log(set1.intersection(set2).values()); // [ 'a' ]
+console.log(set2.difference(set1).values()); // [ 'b', 'c', 'd' ]
+
+var set3 = new Set();
+var set4 = new Set();
+set3.add("a");
+set4.add("b");
+set4.add("c");
+set4.add("a");
+set4.add("d");
+console.log(set4.values());
+set4.remove("a");
+console.log(set4.has("a"));
+console.log(set4.add("d"));
+
