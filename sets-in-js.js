@@ -94,8 +94,6 @@ function mySet(){
     
 }
 
-
-
  const mySet1 = new mySet();
 console.log(mySet1.add(456));      
 console.log(mySet1.values());               
@@ -112,3 +110,19 @@ console.log(mySet1.remove(6));
 console.log(mySet1.remove(67));
 console.log(mySet1.remove(64));
 console.log(mySet1.values());
+
+// return the union of two sets
+
+this.union = function(otherSet){
+   var unionSet = new mySet();
+   var firstSet = this.values();
+   var secondSet = otherSet.values();
+   firstSet.forEach(function(value){
+    unionSet.add(value);
+   })
+   secondSet.forEach(function(value){
+    unionSet.add(value);
+   })
+   return unionSet;
+};
+
