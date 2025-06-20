@@ -138,3 +138,16 @@ this.intersection = function(otherSet){
    })
    return intersectionSet;
 };
+
+// return the difference between two sets
+
+this.difference = function(otherSet){
+  var differenceSet = new mySet();
+  var firstSet = this.values();
+  firstSet.forEach(function(value){
+    if(!otherSet.has(value)){
+      differenceSet.add(value);
+    }
+    })
+    return differenceSet;
+    };
