@@ -126,3 +126,15 @@ this.union = function(otherSet){
    return unionSet;
 };
 
+// return the intersection of two sets
+
+this.intersection = function(otherSet){
+   var intersectionSet = new mySet();
+   var firstSet = this.values();
+   firstSet.forEach(function(value){
+    if(otherSet.has(value)){
+    intersectionSet.add(value);
+    }
+   })
+   return intersectionSet;
+};
