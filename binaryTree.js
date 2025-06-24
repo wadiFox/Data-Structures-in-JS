@@ -119,3 +119,40 @@ class BST {
         this.root = removeNode(this.root, data);
     }
 }
+
+const bst = new BST(); // Create a new Binary Search Tree
+
+// Add nodes to the BST
+bst.add(10);
+bst.add(5);
+bst.add(15);
+bst.add(3);
+bst.add(7);
+bst.add(12);
+bst.add(18);
+
+// --- Example: findMin ---
+console.log("Minimum value:", bst.findMin()); 
+// Output: 3 (the leftmost node)
+
+// --- Example: findMax ---
+console.log("Maximum value:", bst.findMax()); 
+// Output: 18 (the rightmost node)
+
+// --- Example: find(data) ---
+const foundNode = bst.find(7);
+console.log("Found node with value 7:", foundNode); 
+// Output: Node object if found, or null
+
+// --- Example: isPresent(data) ---
+console.log("Is 12 present in the tree?", bst.isPresent(12)); 
+// Output: true
+console.log("Is 20 present in the tree?", bst.isPresent(20)); 
+// Output: false
+
+// --- Example: remove(data) ---
+bst.remove(10); 
+// Removes the root node (10), which has two children
+
+console.log("Tree after removing 10:", JSON.stringify(bst, null, 2)); 
+// Shows the updated structure of the tree
